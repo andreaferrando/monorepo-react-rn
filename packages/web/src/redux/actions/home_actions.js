@@ -1,4 +1,4 @@
-import * as shared from 'shared';
+import * as shared from 'shared/redux/actions/home_actions';
 import { LOCAL_TYPE } from '../constants/reduxTypes';
 
 

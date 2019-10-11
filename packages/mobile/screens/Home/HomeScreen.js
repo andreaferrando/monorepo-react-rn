@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { View, Text } from 'react-native';
 import { AppLoading } from 'expo';
 import { connect } from 'react-redux';
-import * as actions from 'appRedux/actions';
+import * as actions from 'appRedux/actions/home_actions';
 import R from 'res/R';
 import styles from './styles';
 

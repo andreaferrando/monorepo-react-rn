@@ -1,0 +1,41 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions/auth_actions';
+import sharedAuthFunctions from 'shared/components/Auth';
+
+
+class WebAuth extends React.Component {
+
+  render() {
+    return (
+      <div>
+        <form>
+          <label>
+            Email:
+            <input type="text" name="email" value={this.props.getLoginData.email} onChange={(e) => {this.props.onEmailUpdate(e.target.value)}} />
+          </label>
+          <label>
+            Password:
+            <input type="text" name="password" value={this.props.getLoginData.password} onChange={(e) => {this.props.onPasswordUpdate(e.target.value)}} />
+          </label>
+        </form>
+        <button onClick={ () => {this.props.loginUser(this.props.getLoginData)}}>Login</button>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  const { error, loading, user } = state.authData;
+  console.log("*****mapStateToProps******")
+  console.log(state.authData)
+	return { error, loading, user };
+};
+
+export default sharedAuthFunctions(connect(mapStateToProps, actions)(WebAuth));
+
+
+
+
+
+

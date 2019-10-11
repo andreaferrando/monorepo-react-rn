@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { store } from '../redux/store';
-import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import * as actions from '../redux/actions/';
+import * as actions from '../redux/actions/home_actions';
 
 class Home extends Component {
 

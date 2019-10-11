@@ -6,11 +6,13 @@ import {
 } from 'react-navigation';
 
 import HomeScreen from './screens/Home/HomeScreen';
+import AuthScreen from './screens/Auth/AuthScreen';
 
 const AppNavigator = createSwitchNavigator({
-  home: { screen: HomeScreen }
+  home: { screen: HomeScreen },
+  auth: { screen: AuthScreen }
 }, {
-  initialRouteName: 'home',
+  initialRouteName: 'auth',
   lazy: true, //otherwise it loads each screen at the app opening
 });
 

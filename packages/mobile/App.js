@@ -5,23 +5,14 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './src/redux/store'
+import { initNetworking } from 'shared/init';
 
 import AppNavigator from './AppNavigator';
-// import HomeScreen from './screens/Home/HomeScreen'
 
-export default class App extends React.Component {
+class App extends React.Component {
 
 	componentWillMount() {
-		firebase.initializeApp({
-			apiKey: "",
-			authDomain: "",
-			databaseURL: "",
-			projectId: "",
-			storageBucket: "",
-			messagingSenderId: "",
-			appId: "",
-			measurementId: ""
-		});
+		initNetworking()
 	}
 
 	logout() {
@@ -40,4 +31,5 @@ export default class App extends React.Component {
 	}
 }
 
-// export default App;
+export default App;
+
