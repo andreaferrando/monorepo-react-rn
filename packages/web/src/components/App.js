@@ -1,40 +1,31 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import { initApp, isLoggedIn } from '../utils';
 import WebAuth from './Auth';
 import WebAccounts from './Accounts';
 
+class App extends Component {
 
-const PrivateRoute = ({ component: WebAccounts, ...rest }) => {
-
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isLoggedIn() ? (
-          <WebAccounts {...props} />
-        ) : (
-          <Redirect to={{ pathname: '/auth', state: { from: props.location } }} />
-        )
-      }
-    />
-  )
+  componentWillMount() {
+    initApp()
+	}
+  
+  render() {
+    return (
+      <Switch>
+        <Route path="/auth" component={WebAuth} />
+        <Route
+          render={props =>
+            isLoggedIn() ? (
+              <WebAccounts {...props} />
+            ) : (
+              <Redirect to={{ pathname: '/auth' }} />
+            )
+          }
+        />
+      </Switch>
+    );
+  }
 }
 
-export default PrivateRoute
-
-
-
-{/* <div>
-        {isLoggedIn() ? (
-          <WebAccounts {...this.props}/>
-        ) : (
-          <WebAuth {...this.props}/>
-        )}  
-      </div> */}
-
-// export default App;
-
-
-
-
+export default App;

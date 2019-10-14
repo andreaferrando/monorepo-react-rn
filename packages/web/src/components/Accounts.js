@@ -9,7 +9,6 @@ import { isLoggedIn } from '../utils';
 class WebAccounts extends React.Component {
 
   render() {
-    console.log('WE ARE IN ACCOUNTS')
     return (
       <div>
         text

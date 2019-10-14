@@ -21,6 +21,7 @@ export function	sharedLogout(storage) {
 
 
 export function	sharedIsLoggedIn(storage) {
+    console.log(storage.getItem('jwtToken'))
     return storage.getItem('jwtToken') != null
 }
 

@@ -3,15 +3,15 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions/auth_actions';
 import sharedAuthFunctions from 'shared/components/Auth';
+import { isLoggedIn } from '../utils';
+import WebAccounts from './Accounts';
 
 class WebAuth extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log('WE ARE IN AUTH')
-  }
-
   render() {
+    if (isLoggedIn()) {
+      return <WebAccounts />
+    }
     return (
       <div>
         <form>
