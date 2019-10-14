@@ -10,7 +10,7 @@ class WebAuth extends React.Component {
 
   render() {
     if (isLoggedIn()) {
-      return <WebAccounts />
+      return <WebAccounts {...this.props}/>
     }
     return (
       <div>
@@ -24,7 +24,7 @@ class WebAuth extends React.Component {
             <input type="text" name="password" value={this.props.getLoginData.password} onChange={(e) => {this.props.onPasswordUpdate(e.target.value)}} />
           </label>
         </form>
-        <button onClick={ () => {this.props.loginUser(this.props.getLoginData)}}>Login</button>
+        <button onClick={ () => {this.props.loginUser({email:this.props.getLoginData.email, password:this.props.getLoginData.password})}}>Login</button>
       </div>
     );
   }

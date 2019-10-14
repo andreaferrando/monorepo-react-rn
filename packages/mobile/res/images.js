@@ -1,5 +1,5 @@
 const images = {
-    home: {
+    accounts: {
       icon: require('./assets/settings.png'),
     },
 };

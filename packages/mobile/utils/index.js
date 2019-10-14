@@ -9,9 +9,11 @@ export function	logout() {
     sharedLogout(AsyncStorage);
 }
 
-export function isLoggedIn() {
-    return sharedIsLoggedIn(AsyncStorage)
-}
+export const isLoggedIn = (callback) => async dispatch => {
+    sharedIsLoggedIn(AsyncStorage).then((item) => {
+        callback(item != null)
+   })
+};
 
 export function resetLocalStoredInformation() {
     sharedResetStorage(AsyncStorage)

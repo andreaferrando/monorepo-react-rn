@@ -9,7 +9,7 @@ export function	logout() {
 }
 
 export function isLoggedIn() {
-    return sharedIsLoggedIn(localStorage)
+    return sharedIsLoggedIn(localStorage) != null
 }
 
 export function resetLocalStoredInformation() {

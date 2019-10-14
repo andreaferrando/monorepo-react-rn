@@ -14,7 +14,7 @@ const persistConfig = {
   timeout: 0,
   key: 'root',
   storage: AsyncStorage,
-  whiteList: ['homeData', 'authData']
+  whiteList: ['accounts', 'auth']
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 //Set the MIGRATION

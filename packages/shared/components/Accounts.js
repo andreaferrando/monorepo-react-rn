@@ -6,27 +6,13 @@ export default function sharedAuthFunctions(OriginalComponent) {
     constructor(props) {
       super(props);
       this.state = {
-         email: '',
-         password: ''
       };
     }
-
-    onEmailUpdate = (email) => {
-      this.setState({ email });
-    }
-
-    onPasswordUpdate = (password) => {
-      this.setState({ password });
-    }
-
     render() {
       //return original component with additional props
       return (
         <OriginalComponent 
           {...this.props}
-          onEmailUpdate={this.onEmailUpdate}
-          onPasswordUpdate={this.onPasswordUpdate}
-          getLoginData={{email: this.state.email, password: this.state.password}}
         />
       );
     }

@@ -21,10 +21,10 @@ export function	sharedLogout(storage) {
 
 
 export function	sharedIsLoggedIn(storage) {
-    console.log(storage.getItem('jwtToken'))
-    return storage.getItem('jwtToken') != null
+    return storage.getItem('jwtToken')
 }
 
 export function sharedResetStorage(storage) {
     storage.clear();
 }
+

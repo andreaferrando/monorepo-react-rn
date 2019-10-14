@@ -5,8 +5,17 @@ import { connect } from 'react-redux';
 import * as actions from 'appRedux/actions/auth_actions';
 import sharedAuthFunctions from 'shared/components/Auth';
 import R from 'shared/res/R';
+import { isLoggedIn } from '../../utils';
 
-class WebAuth extends React.Component {
+class AuthScreen extends React.Component {
+
+  componentWillMount() {
+    isLoggedIn((isLogged) => {
+      if (isLogged) {
+        this.props.navigation.navigate('accounts');
+      }
+    });
+  }
 
   render() {
     return (
@@ -29,21 +38,22 @@ class WebAuth extends React.Component {
                 title={R.strings.auth.login}
                 style={{ marginTop: 20 }}
                 buttonStyle={{ backgroundColor: R.colors.main.default }}
-                onPress={() => {this.props.loginUser(this.props.getLoginData)}}
+                onPress={() => {this.props.loginUser({email:this.props.getLoginData.email, password:this.props.getLoginData.password})}}
             />
         </View>
     );
   }
 }
 
+
 const mapStateToProps = state => {
-  const { error, loading, user } = state.authData;
-  console.log("*****mapStateToProps******")
-  console.log(state.authData)
+  const { error, loading, user } = state.auth;
+  // console.log("*****mapStateToProps******")
+  // console.log(state.auth)
 	return { error, loading, user };
 };
 
-export default sharedAuthFunctions(connect(mapStateToProps, actions)(WebAuth));
+export default sharedAuthFunctions(connect(mapStateToProps, actions)(AuthScreen));
 
 
 

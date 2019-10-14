@@ -1,5 +1,5 @@
 import { LOCAL_TYPE } from '../constants/reduxTypes';
-import * as shared from 'shared/redux/reducers/home_reducer';
+import * as shared from 'shared/redux/reducers/accounts_reducer';
 
 const INITIAL_STATE = { data: [] };
 

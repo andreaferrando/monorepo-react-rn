@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions/auth_actions';
-import { isLoggedIn } from '../utils';
-
-// import sharedAuthFunctions from 'shared/components/Auth';
+import { logout, isLoggedIn } from '../utils';
+import WebAuth from './Auth';
+// import sharedAuthFunctions from 'shared/components/Accounts';
 
 class WebAccounts extends React.Component {
 
+  localLogout() {
+    this.props.history.push('auth');
+    logout()
+  }
+
   render() {
+    if (!isLoggedIn()) {
+      return <WebAuth />
+    }
     return (
       <div>
-        text
+        <button onClick={ () => {this.localLogout()}}>Logout</button>
       </div>
     );
   }
