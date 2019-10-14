@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './src/redux/store'
-import { initNetworking } from 'shared/init';
+import { initNetworking } from '../utils';
 
 import AppNavigator from './AppNavigator';
 
@@ -13,10 +13,6 @@ class App extends React.Component {
 
 	componentWillMount() {
 		initNetworking()
-	}
-
-	logout() {
-		firebase.auth().signOut();
 	}
 
 	render() {

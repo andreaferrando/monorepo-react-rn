@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions/auth_actions';
 import sharedAuthFunctions from 'shared/components/Auth';
 
-
 class WebAuth extends React.Component {
+
+  constructor(props) {
+    super(props);
+    console.log('WE ARE IN AUTH')
+  }
 
   render() {
     return (
@@ -26,9 +31,7 @@ class WebAuth extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { error, loading, user } = state.authData;
-  console.log("*****mapStateToProps******")
-  console.log(state.authData)
+  const { error, loading, user } = state.auth;
 	return { error, loading, user };
 };
 

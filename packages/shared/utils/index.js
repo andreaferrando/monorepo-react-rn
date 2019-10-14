@@ -1,7 +1,7 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
 
-export function initNetworking() {
+export function sharedInitNetworking() {
     firebase.initializeApp({
         apiKey: "AIzaSyCmhCklkTQlwbK4fnlmIqFkRZoaT0Zh3DE",
         authDomain: "monorepo-react-rn.firebaseapp.com",
@@ -14,6 +14,16 @@ export function initNetworking() {
     });
 }
 
-export function	logout() {
-	firebase.auth().signOut();
+export function	sharedLogout(storage) {
+    firebase.auth().signOut();
+    storage.removeItem('jwtToken'); 
+}
+
+
+export function	sharedIsLoggedIn(storage) {
+    return storage.getItem('jwtToken') != null
+}
+
+export function sharedResetStorage(storage) {
+    storage.clear();
 }

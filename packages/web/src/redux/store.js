@@ -3,8 +3,9 @@ import { configureStore, getDefaultMiddleware } from 'redux-starter-kit'
 import monitorReducersEnhancer from './reducers/enhancers/monitorReducers'
 import loggerMiddleware from './middleware/logger'
 import rootReducer from './reducers'
-import createHistory from 'history/createBrowserHistory';
-export const history = createHistory();
+// import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from "history";
+export const history = createBrowserHistory();
 
 export default function configureAppStore(preloadedState) {
   const store = configureStore({
