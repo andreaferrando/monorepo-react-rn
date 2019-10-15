@@ -1,5 +1,10 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
+import Storage from './storage'
+
+export function sharedInitStorage(storage) {
+    Storage.add(storage)
+}
 
 export function sharedInitNetworking() {
     firebase.initializeApp({

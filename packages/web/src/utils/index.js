@@ -1,6 +1,7 @@
-import { sharedInitNetworking, sharedLogout, sharedIsLoggedIn, sharedResetStorage } from 'shared/utils';
+import { sharedInitNetworking, sharedLogout, sharedIsLoggedIn, sharedResetStorage, sharedInitStorage} from 'shared/utils';
 
 export function initApp() {
+    sharedInitStorage(localStorage)
     sharedInitNetworking()
 }
 

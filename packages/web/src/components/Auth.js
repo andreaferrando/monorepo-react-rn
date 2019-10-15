@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
-import * as actions from '../redux/actions/auth_actions';
+import * as actions from 'shared/redux/actions/auth_actions';
 import sharedAuthFunctions from 'shared/components/Auth';
 import { isLoggedIn } from '../utils';
 import WebAccounts from './Accounts';
 
-class WebAuth extends React.Component {
+class WebAuth extends Component {
 
   render() {
+    
     if (isLoggedIn()) {
       return <WebAccounts {...this.props}/>
     }
@@ -31,7 +31,7 @@ class WebAuth extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { error, loading, user } = state.auth;
+  const { error, loading, user } = state.sharedAuth;
 	return { error, loading, user };
 };
 

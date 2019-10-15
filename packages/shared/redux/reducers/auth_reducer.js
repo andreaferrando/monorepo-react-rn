@@ -3,13 +3,13 @@ import { isEmpty } from '@firebase/util';
 
 const INITIAL_STATE = { user: null, error: '', loading:false, isAuthenticated: false };
 
-export default authData => {
-  return INITIAL_STATE
-};
+// export default authData => {
+//   return INITIAL_STATE
+// };
 
-export const actionTypes = [SHARED_LOGIN_USER_SUCCESS, SHARED_AUTH_ERROR, SHARED_LOADING_AUTH_USER, SHARED_AUTH_ERROR_DISPLAYED, SHARED_LOGOUT]
+// export const actionTypes = [SHARED_LOGIN_USER_SUCCESS, SHARED_AUTH_ERROR, SHARED_LOADING_AUTH_USER, SHARED_AUTH_ERROR_DISPLAYED, SHARED_LOGOUT]
 
-export const reducer = (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case SHARED_LOGIN_USER_SUCCESS:
 			return { ...state, ...INITIAL_STATE, user: action.payload, loading: false, isAuthenticated: !isEmpty(action.payload) };

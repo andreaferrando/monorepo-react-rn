@@ -25,9 +25,8 @@ class WebAccounts extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { user } = state.auth;
   const { accounts, loading, error } = state.accounts;
-	return { user, accounts };
+	return { accounts };
 };
 
 export default connect(mapStateToProps, actions)(WebAccounts);
