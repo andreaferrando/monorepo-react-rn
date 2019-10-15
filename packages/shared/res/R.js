@@ -4,7 +4,7 @@ import icons from './icons';
 import colors from './colors';
 import palette from './palette';
 
-const R = {
+const shR = {
   strings,
   images,
   colors,
@@ -12,4 +12,4 @@ const R = {
   icons,
 };
 
-export default R;
+export default shR;

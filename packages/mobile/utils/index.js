@@ -1,22 +1,31 @@
-import { sharedInitNetworking, sharedLogout, sharedIsLoggedIn, sharedResetStorage } from 'shared/utils';
+import * as sh from 'shared/utils';
 import { AsyncStorage, Dimensions } from 'react-native';
 
 export function initApp() {
-    sharedInitNetworking()
+    sh.sharedInitApp('mobile')
+    sh.sharedInitStorage(AsyncStorage)
+    sh.sharedInitNetworking()
 }
 
-export function	logout() {
-    sharedLogout(AsyncStorage);
-}
-
-export const isLoggedIn = (callback) => async dispatch => {
-    sharedIsLoggedIn(AsyncStorage).then((item) => {
-        callback(item != null)
+export async function isLoggedIn() {
+    return sh.sharedIsLoggedIn().then((item) => {
+        return item != null
    })
-};
+}
+// export const isLoggedIn = (callback) => async =>  {
+//     callback("FF")
+// }
+
+// export const isLoggedIn = (callback) => async dispatch => {
+//     console.log("gere")
+//     sh.sharedIsLoggedIn().then((item) => {
+//         console.log(item)
+//         callback(item != null)
+//    })
+// };
 
 export function resetLocalStoredInformation() {
-    sharedResetStorage(AsyncStorage)
+    sh.sharedResetStorage()
 }
 
 

@@ -1,6 +1,6 @@
 import { SHARED_FETCH_ACCOUNTS_DATA, SHARED_LOADING_ACCOUNTS_DATA, SHARED_ERROR_ACCOUNTS_DATA, SHARED_ERROR_ACCOUNTS_DATA_DISPLAYED } from '../constants/reduxTypes';
 
-const INITIAL_STATE = { accounts: [], error: '', loading: false };
+const INITIAL_STATE = { accounts: [], accounts_error: '', accounts_loading: false };
 
 export default accounts => {
   return INITIAL_STATE

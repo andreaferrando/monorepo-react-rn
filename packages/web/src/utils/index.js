@@ -1,18 +1,15 @@
-import { sharedInitNetworking, sharedLogout, sharedIsLoggedIn, sharedResetStorage, sharedInitStorage} from 'shared/utils';
+import { sharedInitNetworking, sharedIsLoggedIn, sharedResetStorage, sharedInitStorage, sharedInitApp} from 'shared/utils';
 
 export function initApp() {
+    sharedInitApp('web')
     sharedInitStorage(localStorage)
     sharedInitNetworking()
 }
 
-export function	logout() {
-    sharedLogout(localStorage);
-}
-
 export function isLoggedIn() {
-    return sharedIsLoggedIn(localStorage) != null
+    return sharedIsLoggedIn() != null
 }
 
 export function resetLocalStoredInformation() {
-    sharedResetStorage(localStorage)
+    sharedResetStorage()
 }

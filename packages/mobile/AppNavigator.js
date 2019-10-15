@@ -13,7 +13,8 @@ const AppNavigator = createSwitchNavigator({
   accounts: { screen: AccountsScreen },
   auth: { screen: AuthScreen }
 }, {
-  initialRouteName: isLoggedIn() ? ('accounts') : ('auth'),
+  // initialRouteName: isLoggedIn() ? ('accounts') : ('auth'),
+  initialRouteName: 'auth',
   lazy: true, //otherwise it loads each screen at the app opening
 });
 

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import * as actions from '../redux/actions/auth_actions';
-import { logout, isLoggedIn } from '../utils';
+import sharedAccountsFunctions, {sharedMapStateToProps, accountsActions, authActions} from 'shared/components/Accounts';
+import { isLoggedIn } from '../utils';
 import WebAuth from './Auth';
-// import sharedAuthFunctions from 'shared/components/Accounts';
 
-class WebAccounts extends React.Component {
+class WebAccounts extends Component {
 
-  localLogout() {
-    this.props.history.push('auth');
-    logout()
+  componentDidMount(){
+    this.props.setProps(this.props)
   }
 
   render() {
@@ -18,18 +17,21 @@ class WebAccounts extends React.Component {
     }
     return (
       <div>
-        <button onClick={ () => {this.localLogout()}}>Logout</button>
+        <button onClick={ () => {this.props.logout()}}>{this.props.logoutButtonTitle}</button>
       </div>
     );
   }
+
 }
 
-const mapStateToProps = state => {
-  const { accounts, loading, error } = state.accounts;
-	return { accounts };
-};
+const sharedMapDispatchToProps = (dispatch) => {
+  return ({
+    accountsActions: bindActionCreators(accountsActions, dispatch),
+    authActions: bindActionCreators(authActions, dispatch)
+  });
+}
 
-export default connect(mapStateToProps, actions)(WebAccounts);
+export default sharedAccountsFunctions(connect(sharedMapStateToProps, sharedMapDispatchToProps)(WebAccounts));
 
 
 

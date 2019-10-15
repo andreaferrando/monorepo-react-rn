@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from 'shared/redux/actions/auth_actions';
-import sharedAuthFunctions from 'shared/components/Auth';
+import sharedAuthFunctions, {sharedMapStateToProps, sharedActions} from 'shared/components/Auth';
 import { isLoggedIn } from '../utils';
 import WebAccounts from './Accounts';
 
 class WebAuth extends Component {
 
+  componentDidMount(){
+    this.props.setProps(this.props)
+  }
+
   render() {
-    
     if (isLoggedIn()) {
       return <WebAccounts {...this.props}/>
     }
@@ -17,28 +19,18 @@ class WebAuth extends Component {
         <form>
           <label>
             Email:
-            <input type="text" name="email" value={this.props.getLoginData.email} onChange={(e) => {this.props.onEmailUpdate(e.target.value)}} />
+            <input type="text" name="email" value={this.props.email} onChange={(e) => {this.props.onEmailUpdate(e.target.value)}} />
           </label>
           <label>
             Password:
-            <input type="text" name="password" value={this.props.getLoginData.password} onChange={(e) => {this.props.onPasswordUpdate(e.target.value)}} />
+            <input type="text" name="password" value={this.props.password} onChange={(e) => {this.props.onPasswordUpdate(e.target.value)}} />
           </label>
         </form>
-        <button onClick={ () => {this.props.loginUser({email:this.props.getLoginData.email, password:this.props.getLoginData.password})}}>Login</button>
+        <button onClick={ () => {this.props.onLoginClicked()}}>{this.props.loginButtonTitle}</button>
+        
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  const { error, loading, user } = state.sharedAuth;
-	return { error, loading, user };
-};
-
-export default sharedAuthFunctions(connect(mapStateToProps, actions)(WebAuth));
-
-
-
-
-
-
+export default sharedAuthFunctions(connect(sharedMapStateToProps, sharedActions)(WebAuth));

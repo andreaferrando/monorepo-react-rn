@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import auth from './auth_reducer';
-import accounts from './accounts_reducer';
+import sharedAuth from 'shared/redux/reducers/auth_reducer';
+import sharedAccounts from 'shared/redux/reducers/accounts_reducer';
 
 export default combineReducers({
-  accounts,
-  auth,
+  sharedAuth,
+  sharedAccounts,
 });

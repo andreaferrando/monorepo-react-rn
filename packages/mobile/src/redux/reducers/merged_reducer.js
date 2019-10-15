@@ -3,8 +3,8 @@
 // export default (state = {}, action) => {
 // 	const actionTypes = shared.actionTypes
 // 	if (actionTypes.includes(action.type)) {
-// 		return shared.reducer(state, action)
-// 		// return {authData}
+// 		const sharedData = shared.reducer(state, action)
+// 		return {...state, data:sharedData}
 // 	}
 // 	return state
 // };

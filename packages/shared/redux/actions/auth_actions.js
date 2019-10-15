@@ -4,7 +4,6 @@ import { SHARED_LOGIN_USER_SUCCESS, SHARED_AUTH_ERROR, SHARED_LOADING_AUTH_USER,
 import Storage from '../../utils/storage'
 
 export const loginUser = ({ email, password }) => async dispatch => {
-// export const loginUser = (email, password, storage) => async dispatch => {
 	dispatch({ type: SHARED_LOADING_AUTH_USER });
 	try {
 		firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(async() => {
@@ -19,14 +18,11 @@ export const loginUser = ({ email, password }) => async dispatch => {
 };
 
 const loginUserFail = (dispatch, error) => {
-	console.log(error)
 	dispatch({ type: SHARED_AUTH_ERROR, errorMessage: error });
 };
 
 const loginUserSuccess = async (dispatch, user) => {
 	const storage = Storage.get()
-	console.log("STORAGE")
-	console.log(storage)
 	const userData = JSON.stringify(user) || '';
 	try {
         await storage.setItem('jwtToken',user.a.c);
@@ -37,11 +33,11 @@ const loginUserSuccess = async (dispatch, user) => {
 };
 
 
-export const logout = () => async dispatch => {
+export const logoutUser = () => async dispatch => {
 	try {
 		await firebase.auth().signOut();
-		// GlobalFunctions.resetUser();
-		// GlobalFunctions.clearAsyncStorage();
+		Storage.get().removeItem('jwtToken');
+		// Storage.get().clear();
 		dispatch({ type: SHARED_LOGOUT });
 	} catch (err) {
 		dispatch({ type: SHARED_AUTH_ERROR, payload: err.message || 'Failed logging out' });

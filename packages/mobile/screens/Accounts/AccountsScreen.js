@@ -1,42 +1,49 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { View, Text } from 'react-native';
+import { View, Button } from 'react-native';
 import { AppLoading } from 'expo';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from 'appRedux/actions/accounts_actions';
+import sharedAccountsFunctions, {sharedMapStateToProps, accountsActions, authActions} from 'shared/components/Accounts';
 import { isLoggedIn } from '../../utils';
-// import R from 'appRes/R';
-// import styles from './styles';
+import shR from 'shared/res/R';
 
 class AccountsScreen extends React.Component {
   static navigationOptions = () => ({
     tabBarVisible: false
   });
 
-  state = {  };
-
-  componentWillMount() {
-    if (!isLoggedIn()) {
-      this.props.navigation.navigate('auth');
-    }
+  componentDidMount() {
+    this.props.setProps(this.props)
   }
-
+  
   render() {
-    if (_.isNull(this.state.didLoad)) {
-      return <AppLoading />;
-    }
+    isLoggedIn().then( (isLogged) => {
+      if (!isLogged) {
+        this.props.navigation.navigate('auth');
+      }
+    })
     return (
       <View style={{ top: 80 }}>
-        <Text>ReduxData: {this.props.data}</Text>
+        <Button
+            title={this.props.logoutButtonTitle}
+            style={{ marginTop: 20 }}
+            buttonStyle={{ backgroundColor: shR.colors.main.default }}
+            onPress={() => {this.props.logout()}}
+        />
       </View>
     );
   }
 }
 
+const sharedMapDispatchToProps = (dispatch) => {
+  return ({
+    accountsActions: bindActionCreators(accountsActions, dispatch),
+    authActions: bindActionCreators(authActions, dispatch)
+  });
+}
 
-const mapStateToProps = state => {
-  const { accounts, error, loading } = state.accounts
-  return { accounts, error, loading }
-};
+export default sharedAccountsFunctions(connect(sharedMapStateToProps, sharedMapDispatchToProps)(AccountsScreen));
 
-export default connect(mapStateToProps, actions)(AccountsScreen);
+
+

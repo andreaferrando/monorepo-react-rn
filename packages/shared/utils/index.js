@@ -2,6 +2,10 @@ import firebase from '@firebase/app';
 import '@firebase/auth';
 import Storage from './storage'
 
+export function sharedInitApp(source) {
+    //ADD SAVE SOURCE TYPE
+}
+
 export function sharedInitStorage(storage) {
     Storage.add(storage)
 }
@@ -19,17 +23,11 @@ export function sharedInitNetworking() {
     });
 }
 
-export function	sharedLogout(storage) {
-    firebase.auth().signOut();
-    storage.removeItem('jwtToken'); 
+export function	sharedIsLoggedIn() {
+    return Storage.get().getItem('jwtToken')
 }
 
-
-export function	sharedIsLoggedIn(storage) {
-    return storage.getItem('jwtToken')
-}
-
-export function sharedResetStorage(storage) {
-    storage.clear();
+export function sharedResetStorage() {
+    Storage.get().clear();
 }
 
