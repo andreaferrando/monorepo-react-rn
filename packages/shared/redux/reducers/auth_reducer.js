@@ -14,7 +14,6 @@ export default (state = INITIAL_STATE, action) => {
 		case SHARED_AUTH_ERROR_DISPLAYED:
 			return { ...state, error: null, isAuthenticated:false };
 		case SHARED_LOGOUT:
-			console.log("SHARED_LOGOUT")
 			return { ...state, ...INITIAL_STATE, isAuthenticated:false };
 		default:
 			return state;

@@ -1,1 +1,2 @@
-export const testValue = 'Shared code'
+export * from "./actions/home_actions";
+export * from "./reducers/home_reducer";

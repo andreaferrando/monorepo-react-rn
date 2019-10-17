@@ -12,17 +12,6 @@ export async function isLoggedIn() {
         return item != null
    })
 }
-// export const isLoggedIn = (callback) => async =>  {
-//     callback("FF")
-// }
-
-// export const isLoggedIn = (callback) => async dispatch => {
-//     console.log("gere")
-//     sh.sharedIsLoggedIn().then((item) => {
-//         console.log(item)
-//         callback(item != null)
-//    })
-// };
 
 export function resetLocalStoredInformation() {
     sh.sharedResetStorage()

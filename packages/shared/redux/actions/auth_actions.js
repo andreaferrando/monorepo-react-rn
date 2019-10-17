@@ -37,7 +37,6 @@ export const logoutUser = () => async dispatch => {
 	try {
 		await firebase.auth().signOut();
 		Storage.get().removeItem('jwtToken');
-		// Storage.get().clear();
 		dispatch({ type: SHARED_LOGOUT });
 	} catch (err) {
 		dispatch({ type: SHARED_AUTH_ERROR, payload: err.message || 'Failed logging out' });

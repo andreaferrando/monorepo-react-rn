@@ -8,10 +8,16 @@ export default function sharedAccountsFunctions(OriginalComponent) {
 
     setOriginalComponentProps = (originalProps) => {
       this.originalComponentProps = originalProps;
+      this.originalComponentProps.accountsActions.fetchAccounts()
     }
 
     logout = () => {
       this.originalComponentProps.authActions.logoutUser()
+    }
+
+    makeTransfer = () => {
+      console.log("push to make transfer")
+      // this.originalComponentProps.transferActions.setFromAccount(account)
     }
 
     render() { 
@@ -21,6 +27,8 @@ export default function sharedAccountsFunctions(OriginalComponent) {
           setProps={this.setOriginalComponentProps}
           logout={this.logout}
           logoutButtonTitle={shR.strings.auth.logout}
+          makeTransferButtonTitle={shR.strings.accounts.makeTransfer}
+          makeTransfer={this.makeTransfer}
         />
       );
     }

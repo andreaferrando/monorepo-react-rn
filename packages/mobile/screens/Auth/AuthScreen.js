@@ -32,6 +32,7 @@ class AuthScreen extends React.Component {
                 errorStyle={{ color: shR.colors.red }}
                 value={this.props.password}
                 inputStyle={{ color: shR.colors.black }}
+                secureTextEntry
                 onChangeText={text => this.props.onPasswordUpdate(text)}
             />
             <Button

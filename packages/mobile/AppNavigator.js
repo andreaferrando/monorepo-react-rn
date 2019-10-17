@@ -1,5 +1,3 @@
-// import React from 'react'
-// import { View, Text } from 'react-native';
 import { isLoggedIn } from './utils';
 import {
   createAppContainer,
@@ -13,8 +11,7 @@ const AppNavigator = createSwitchNavigator({
   accounts: { screen: AccountsScreen },
   auth: { screen: AuthScreen }
 }, {
-  // initialRouteName: isLoggedIn() ? ('accounts') : ('auth'),
-  initialRouteName: 'auth',
+  initialRouteName: isLoggedIn() ? ('accounts') : ('auth'),
   lazy: true, //otherwise it loads each screen at the app opening
 });
 

@@ -1,15 +1,17 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import Storage from './storage'
+import Platform from './platform'
 
 export function sharedInitApp(source) {
-    //ADD SAVE SOURCE TYPE
+    Platform.add(source)
 }
 
 export function sharedInitStorage(storage) {
     Storage.add(storage)
 }
 
+//Move these values in a secret file to add to .gitignore
 export function sharedInitNetworking() {
     firebase.initializeApp({
         apiKey: "AIzaSyCmhCklkTQlwbK4fnlmIqFkRZoaT0Zh3DE",

@@ -1,23 +1,16 @@
-import React, { Component } from 'react';
-import { TouchableOpacity, View, Text, Image } from 'react-native';
-import R from 'res/R';
+import React, { Component } from "react";
+import { TouchableOpacity, View, Text, Image } from "react-native";
+import R from "res/R";
 
 class AddItem extends Component {
-
   static defaultProps = {
-     // backgroundImage: null,
-     showPlus: true
-  }
+    showPlus: true
+  };
 
   renderBackground() {
     const { backgroundImage } = this.props;
     if (backgroundImage != null) {
-      return (
-        <Image
-        source={backgroundImage}
-        style={styles.backgroundImage}
-        />
-      );
+      return <Image source={backgroundImage} style={styles.backgroundImage} />;
     }
     return <View />;
   }
@@ -25,7 +18,9 @@ class AddItem extends Component {
   renderText() {
     const { tintColor, text } = this.props;
     if (text !== null) {
-      return <Text style={[styles.textStyle, { color: tintColor }]}>{text}</Text>;
+      return (
+        <Text style={[styles.textStyle, { color: tintColor }]}>{text}</Text>
+      );
     }
     return null;
   }
@@ -38,8 +33,8 @@ class AddItem extends Component {
           {this.renderText()}
           <View style={{ height: 10 }} />
           <Image
-          source={R.icons.plus}
-          style={[styles.buttonIcon, { tintColor }]}
+            source={R.icons.plus}
+            style={[styles.buttonIcon, { tintColor }]}
           />
         </View>
       );
@@ -49,7 +44,10 @@ class AddItem extends Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={[styles.viewWrapper, this.props.viewWrapperSize]}>
+      <TouchableOpacity
+        onPress={this.props.onPress}
+        style={[styles.viewWrapper, this.props.viewWrapperSize]}
+      >
         {this.renderBackground()}
         {this.renderPlus()}
       </TouchableOpacity>
@@ -57,22 +55,21 @@ class AddItem extends Component {
   }
 }
 
-
 const styles = {
   viewWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden"
   },
   buttonIcon: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent"
   },
   textStyle: {
-    fontSize: 17,
+    fontSize: 17
   },
   backgroundImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%"
   }
 };
 

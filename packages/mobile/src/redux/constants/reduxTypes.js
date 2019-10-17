@@ -1,1 +1,1 @@
-export const LOCAL_TYPE = 'LOCAL_TYPE';
+export const LOCAL_TYPE = "LOCAL_TYPE";

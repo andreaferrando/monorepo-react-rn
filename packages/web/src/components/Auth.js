@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import sharedAuthFunctions, {sharedMapStateToProps, sharedActions} from 'shared/components/Auth';
 import { isLoggedIn } from '../utils';
 import WebAccounts from './Accounts';
@@ -12,18 +13,18 @@ class WebAuth extends Component {
 
   render() {
     if (isLoggedIn()) {
-      return <WebAccounts {...this.props}/>
+      return <Redirect to={'/'} /> 
     }
     return (
       <div>
         <form>
           <label>
             Email:
-            <input type="text" name="email" value={this.props.email} onChange={(e) => {this.props.onEmailUpdate(e.target.value)}} />
+            <input type="email" name="email" value={this.props.email} onChange={(e) => {this.props.onEmailUpdate(e.target.value)}} />
           </label>
           <label>
             Password:
-            <input type="text" name="password" value={this.props.password} onChange={(e) => {this.props.onPasswordUpdate(e.target.value)}} />
+            <input type="password" name="password" value={this.props.password} onChange={(e) => {this.props.onPasswordUpdate(e.target.value)}} />
           </label>
         </form>
         <button onClick={ () => {this.props.onLoginClicked()}}>{this.props.loginButtonTitle}</button>

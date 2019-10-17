@@ -45,8 +45,6 @@ export default function sharedAuthFunctions(OriginalComponent) {
 
 export const sharedMapStateToProps = state => {
   const { auth_error, auth_loading, user } = state.sharedAuth;
-  console.log("******AUTH_MapStateProps******")
-  console.log(state.sharedAuth)
 	return { auth_error, auth_loading, user };
 };
 

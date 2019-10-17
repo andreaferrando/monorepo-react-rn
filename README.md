@@ -1,12 +1,17 @@
-![Issues](https://img.shields.io/github/issues/Fried-Chicken/ghost-static-site-generator.svg)
-![License](https://img.shields.io/github/license/Fried-Chicken/ghost-static-site-generator.svg)
-![Stars](https://img.shields.io/github/stars/Fried-Chicken/ghost-static-site-generator.svg)
-# expo-monorepo
-An expo monorepo boilerplate using lerna and yarn workspaces for creating react native apps. 
+## Installation & Running Services
 
-## Prerequisites
-You need to install [watchman](https://facebook.github.io/watchman/)
+1. To run the web service:
 
-## Installation
-1. Run `yarn`
-2. Run `yarn start`
+- cd src/front_end/packages/web
+- Run `yarn; yarn start`
+
+2. To run the mobile application:
+
+- cd src/front_end
+- Run `yarn; yarn start`
+- Open your browser at the location that Expo DevTools is running at (e.g. http://localhost:19002)
+- From the left tab, select a simulator to install and run the package
+- To run an iOS simulator, ensure X-Code is installed via the app store. You may need to run some
+- commands to accept the terms and conditions.
+- To run an android simulator, either install both VirtualBox & Genymotion, or install Android Studio
+- and launch a simulator through AVD.

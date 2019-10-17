@@ -15,3 +15,7 @@ ReactDOM.render((
   </Provider>
 
 ), document.getElementById('root'));
+
+
+/*REACT ROUTER TUTORIAL: https://blog.pshrmn.com/simple-react-router-v4-tutorial/*/
+/*this.props.history.push({ pathname: '/transfer' });*/

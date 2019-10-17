@@ -1,27 +1,43 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom'
 import sharedAccountsFunctions, {sharedMapStateToProps, accountsActions, authActions} from 'shared/components/Accounts';
 import { isLoggedIn } from '../utils';
-import WebAuth from './Auth';
 
 class WebAccounts extends Component {
+
+  state = {goToMakeTransfer: false}
 
   componentDidMount(){
     this.props.setProps(this.props)
   }
 
+  renderList() {
+    if (!this.props.accounts) { return null; }
+    return (
+      <ul>
+        {this.props.accounts.map(function(account) {
+          return <li key={account.number}>{account.number}</li>
+        })}
+      </ul>
+    )
+  }
+
   render() {
     if (!isLoggedIn()) {
-      return <WebAuth />
+      return <Redirect to={'/auth'} /> 
     }
     return (
       <div>
-        <button onClick={ () => {this.props.logout()}}>{this.props.logoutButtonTitle}</button>
+        <ul style={{"listStyleType":"none"}}>
+          <li>{this.renderList()}</li>
+          <li><Link to='/transfer'>{this.props.makeTransferButtonTitle}</Link></li>
+          <li><button onClick={ () => {this.props.logout()}}>{this.props.logoutButtonTitle}</button></li>
+        </ul>
       </div>
     );
   }
-
 }
 
 const sharedMapDispatchToProps = (dispatch) => {
@@ -30,6 +46,8 @@ const sharedMapDispatchToProps = (dispatch) => {
     authActions: bindActionCreators(authActions, dispatch)
   });
 }
+
+// export default sharedAccountsFunctions(withRouter(connect(sharedMapStateToProps, sharedMapDispatchToProps)(WebAccounts)));
 
 export default sharedAccountsFunctions(connect(sharedMapStateToProps, sharedMapDispatchToProps)(WebAccounts));
 

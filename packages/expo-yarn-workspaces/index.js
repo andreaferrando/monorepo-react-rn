@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-const debug = require('debug')('workspaces');
-const findYarnWorkspaceRoot = require('find-yarn-workspace-root');
-const fs = require('fs');
-const blacklist = require('metro-config/src/defaults/blacklist');
-const { assetExts } = require('metro-config/src/defaults/defaults');
-const path = require('path');
+const debug = require("debug")("workspaces");
+const findYarnWorkspaceRoot = require("find-yarn-workspace-root");
+const fs = require("fs");
+const blacklist = require("metro-config/src/defaults/blacklist");
+const { assetExts } = require("metro-config/src/defaults/defaults");
+const path = require("path");
 
 /**
  * Returns a configuration object in the format expected for "rn-cli.config.js" files. The
@@ -16,9 +16,14 @@ const path = require('path');
  *   * excludes all modules from Haste's module system (providesModule)
  *   * excludes modules in the native Android and Xcode projects
  */
-exports.createReactNativeConfiguration = function createReactNativeConfiguration(projectPath) {
+exports.createReactNativeConfiguration = function createReactNativeConfiguration(
+  projectPath
+) {
   projectPath = path.resolve(projectPath);
-  debug(`Creating a React Native configuration for the project at %s`, projectPath);
+  debug(
+    `Creating a React Native configuration for the project at %s`,
+    projectPath
+  );
 
   let watchFolders;
   let extraNodeModules;
@@ -29,7 +34,7 @@ exports.createReactNativeConfiguration = function createReactNativeConfiguration
     watchFolders = [workspaceRootPath];
     extraNodeModules = {
       ...getSymlinkedNodeModulesForDirectory(workspaceRootPath),
-      ...getSymlinkedNodeModulesForDirectory(projectPath),
+      ...getSymlinkedNodeModulesForDirectory(projectPath)
     };
   } else {
     debug(`Could not find Yarn workspace root`);
@@ -46,7 +51,7 @@ exports.createReactNativeConfiguration = function createReactNativeConfiguration
 
     resolver: {
       // test-suite includes a db asset
-      assetExts: [...assetExts, 'db'],
+      assetExts: [...assetExts, "db"],
 
       // Make the symlinked packages visible to Metro
       extraNodeModules,
@@ -55,13 +60,16 @@ exports.createReactNativeConfiguration = function createReactNativeConfiguration
       providesModuleNodeModules: [],
 
       // Ignore JS files in the native Android and Xcode projects
-      blacklistRE: blacklist([/.*\/android\/ReactAndroid\/.*/, /.*\/versioned-react-native\/.*/]),
+      blacklistRE: blacklist([
+        /.*\/android\/ReactAndroid\/.*/,
+        /.*\/versioned-react-native\/.*/
+      ])
     },
 
     transformer: {
       // Ignore file-relative Babel configurations and apply only the project's
-      enableBabelRCLookup: false,
-    },
+      enableBabelRCLookup: false
+    }
   };
 };
 
@@ -69,13 +77,13 @@ exports.createReactNativeConfiguration = function createReactNativeConfiguration
  * Returns a mapping from the names of symlinked packages to the physical paths of each package.
  */
 function getSymlinkedNodeModulesForDirectory(packagePath) {
-  let nodeModulesPath = path.join(packagePath, 'node_modules');
+  let nodeModulesPath = path.join(packagePath, "node_modules");
   let directories = listDirectoryContents(nodeModulesPath);
 
   let modules = {};
   for (let directory of directories) {
     // The directory is either a scope or a package
-    if (directory.startsWith('@')) {
+    if (directory.startsWith("@")) {
       let scopePath = path.join(nodeModulesPath, directory);
       let scopedPackageDirectories = fs.readdirSync(scopePath);
       for (let subdirectory of scopedPackageDirectories) {
@@ -100,7 +108,7 @@ function listDirectoryContents(directory) {
   try {
     return fs.readdirSync(directory);
   } catch (e) {
-    if (e.code === 'ENOENT') {
+    if (e.code === "ENOENT") {
       return [];
     }
     throw e;
