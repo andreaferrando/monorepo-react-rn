@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import sharedAuthFunctions, {sharedMapStateToProps, sharedActions} from 'shared/components/Auth';
-import { isLoggedIn } from '../utils';
-import WebAccounts from './Accounts';
+import WebRoute from '../utils/webroute';
 
 class WebAuth extends Component {
 
-  componentDidMount(){
-    this.props.setProps(this.props)
-  }
+  state = { }
+  static getDerivedStateFromProps(nextProps, prevState){
+    nextProps.updateSharedProps(nextProps)
+    return prevState
+ }
 
   render() {
-    if (isLoggedIn()) {
-      return <Redirect to={'/'} /> 
+    if (this.props.loginSucceeded() === true) {
+      return <Redirect to={WebRoute.home} /> 
     }
     return (
       <div>

@@ -4,6 +4,7 @@ import { initApp, isLoggedIn } from '../utils';
 import WebAuth from './Auth';
 import WebAccounts from './Accounts';
 import WebTransfer from './Transfer';
+import WebRoute from '../utils/webroute';
 
 class App extends Component {
 
@@ -14,9 +15,9 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/auth" component={WebAuth}/>
-        <PrivateRoute exact path='/' component={WebAccounts}/>
-        <PrivateRoute path='/transfer' component={WebTransfer}/>
+        <Route path={WebRoute.auth} component={WebAuth}/>
+        <PrivateRoute exact path={WebRoute.home} component={WebAccounts}/>
+        <PrivateRoute path={WebRoute.transfer} component={WebTransfer}/>
       </Switch>
     );
   }
@@ -26,33 +27,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     isLoggedIn() === true
       ? <Component {...props} />
-      : <Redirect to='/auth' />
+      : <Redirect to={WebRoute.auth} />
   )} />
 )
 
 export default App;
-
-/* <Router history={this.props.history}>
-        <Route path="/" component={WebAccounts}>
-          <Route path="/auth" component={WebAuth}/>
-          <Route path="/transfer" component={WebTransfer}/>
-        </Route>
-     </Router> */
-
-          /*<Router history={this.props.history}>
-      <Switch>
-        <Route path="/auth" component={WebAuth} />
-          <Route path="/transfer" component={WebTransfer} />
-          <Route
-            render={props =>
-              isLoggedIn() ? (
-                <WebAccounts {...props} />
-              ) : (
-                <Redirect to={{ pathname: '/auth' }} />
-              )
-            }
-          />
-        </Switch>
-        </Router>*/
-       
-          

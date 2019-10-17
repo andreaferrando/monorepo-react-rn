@@ -3,36 +3,32 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import sharedTransferFunctions, {sharedMapStateToProps, accountsActions, transferActions} from 'shared/components/Transfer';
-
+import WebRoute from '../utils/webroute';
 
 class WebTransfer extends Component {
 
-  componentDidMount(){
-    this.props.initShared(this.props)
-  }
+  state = { }
+  static getDerivedStateFromProps(nextProps, prevState){
+    nextProps.updateSharedProps(nextProps)
+    return prevState
+ }
 
-  componentWillReceiveProps(newProps) {
-    this.props.updateOriginalComponentProps(newProps)
-  }
-
-  renderList(isListOfFromAccounts) {
-    if (!this.props.accounts) { return null; }
+  renderList(isFromList) {
+    if (!this.props.accounts) { return null }
     return (
       <ul>
         {this.props.accounts.map((account) => {
           return <button key={account.number} 
-          style={this.props.areAccountsEqual(isListOfFromAccounts ? (this.props.accountFrom) : (this.props.accountTo), account) === true ? ({"backgroundColor":"blue"}) : ({})} 
-          onClick={ () => {
-            isListOfFromAccounts ? (this.props.selectAccountFrom(account)) : (this.props.selectAccountTo(account)) }}>{account.number}</button>
+          style={this.props.shouldAccountBeSelected(account,isFromList) ? ({"backgroundColor":"blue"}) : ({})} 
+          onClick={ () => {this.props.selectAccount(account, isFromList) }}>{account.number}</button>
         })}
       </ul>
     )
   }
 
   render() {
-    if (this.props.needsToRenderTransferCompleted()) {
-      this.props.transferCompletedDidRender()
-      return <Redirect to={'/'} /> 
+    if (this.props.didTransferSucceed()) {
+      return <Redirect to={WebRoute.home} /> 
     }
     return (
       <div>

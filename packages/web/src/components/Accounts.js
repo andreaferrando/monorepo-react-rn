@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom'
 import sharedAccountsFunctions, {sharedMapStateToProps, accountsActions, authActions} from 'shared/components/Accounts';
 import { isLoggedIn } from '../utils';
+import WebRoute from '../utils/webroute';
 
 class WebAccounts extends Component {
-
-  state = {goToMakeTransfer: false}
 
   componentDidMount(){
     this.props.setProps(this.props)
@@ -26,13 +25,13 @@ class WebAccounts extends Component {
 
   render() {
     if (!isLoggedIn()) {
-      return <Redirect to={'/auth'} /> 
+      return <Redirect to={WebRoute.auth} /> 
     }
     return (
       <div>
         <ul style={{"listStyleType":"none"}}>
           <li>{this.renderList()}</li>
-          <li><Link to='/transfer'>{this.props.makeTransferButtonTitle}</Link></li>
+          <li><Link to={WebRoute.transfer}>{this.props.makeTransferButtonTitle}</Link></li>
           <li><button onClick={ () => {this.props.logout()}}>{this.props.logoutButtonTitle}</button></li>
         </ul>
       </div>
