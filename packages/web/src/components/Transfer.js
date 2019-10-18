@@ -19,7 +19,7 @@ class WebTransfer extends Component {
       <ul>
         {this.props.accounts.map((account) => {
           return <button key={account.number} 
-          style={this.props.shouldAccountBeSelected(account,isFromList) ? ({"backgroundColor":"blue"}) : ({})} 
+          style={this.props.isAccountSelected(account,isFromList) ? ({"backgroundColor":"blue"}) : ({})} 
           onClick={ () => {this.props.selectAccount(account, isFromList) }}>{account.number}</button>
         })}
       </ul>

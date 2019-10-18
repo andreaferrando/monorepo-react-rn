@@ -2,22 +2,22 @@ import React from 'react';
 import { View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { isLoggedIn } from '../../utils';
+import {Navigation} from '../../AppNavigator'
 import sharedAuthFunctions, {sharedMapStateToProps, sharedActions} from 'shared/components/Auth';
 import shR from 'shared/res/R';
 
 class AuthScreen extends React.Component {
 
-  componentDidMount() {
-    this.props.setProps(this.props)
+  state = { }
+  static getDerivedStateFromProps(nextProps, prevState){
+    nextProps.updateSharedProps(nextProps)
+    return prevState
   }
-
+ 
   render() {
-    isLoggedIn().then( (isLogged) => {
-      if (isLogged) {
-        this.props.navigation.navigate('accounts');
-      }
-    })
+    if (this.props.loginSucceeded() === true) {
+      this.props.navigation.navigate(Navigation.accounts);
+    }
     return (
         <View style={{ flex:1, top:44}}>
             <Input

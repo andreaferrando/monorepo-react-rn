@@ -6,39 +6,29 @@ import * as actionsTransfer from '../redux/actions/transfer_actions';
 export default function sharedTransferFunctions(OriginalComponent) {
   return class extends React.Component {
   
-    state = { completedDidDisplay: false}
+    state = { didSetComponent: false }
 
-    setOriginalComponentProps = (props) => {
-      this.updateOriginalComponentProps(props)
-      this.originalComponentProps.accountsActions.fetchAccounts()
-    }
-
-    updateOriginalComponentProps = (originalProps) => {
-      this.originalComponentProps = originalProps;
-      if (this.originalComponentProps.transfer_completed == true) {
-        this.setState({completedDidDisplay: true})
-        this.originalComponentProps.transferActions.completedDisplayed()
+    originalComponentDidUpdate = async (originalProps) =>  {
+      this.propsComponent = originalProps
+      if (this.state.didSetComponent === false) {
+        originalProps.accountsActions.fetchAccounts()
+        this.setState({didSetComponent: true})
+      }
+      if (originalProps.transfer_completed == true) {
+        this.propsComponent.transferActions.completedDisplayed()
       }
     }
 
-    selectAccountFrom = (account) => {
-      if (this.areAccountsEqual(this.originalComponentProps.accountFrom, account)) {
-        this.originalComponentProps.transferActions.unselectAccountFrom(account)
+    selectAccount = (account, isFrom) => {
+      if (isFrom === true) {
+        this.isAccountSelected(account, true) === true ? (this.propsComponent.transferActions.unselectAccountFrom(account)) : (this.propsComponent.transferActions.selectAccountFrom(account))
       } else {
-        this.originalComponentProps.transferActions.selectAccountFrom(account)
+        this.isAccountSelected(account, false) === true ? (this.propsComponent.transferActions.unselectAccountTo(account)) : (this.propsComponent.transferActions.selectAccountTo(account))
       }
     }
 
-    selectAccountTo = (account) => {
-      if (this.areAccountsEqual(this.originalComponentProps.accountTo, account)) {
-        this.originalComponentProps.transferActions.unselectAccountTo(account)
-      } else {
-        this.originalComponentProps.transferActions.selectAccountTo(account)
-      }
-    }
-
-    setAmount = (amount) => {
-      this.originalComponentProps.transferActions.setAmount(amount)
+    isAccountSelected = (account, isFrom) => {
+      return this.areAccountsEqual(isFrom ? (this.propsComponent.accountFrom) : (this.propsComponent.accountTo), account) === true 
     }
 
     areAccountsEqual = (account1, account2) => {
@@ -46,32 +36,31 @@ export default function sharedTransferFunctions(OriginalComponent) {
       return account1 === account2
     }
 
+    setAmount = (amount) => {
+      this.propsComponent.transferActions.setAmount(amount)
+    }
+
     makeTransfer = () => {
-      this.originalComponentProps.transferActions.makeTransfer(this.originalComponentProps.accountFrom,this.originalComponentProps.accountTo,this.originalComponentProps.amount)
+      this.propsComponent.transferActions.makeTransfer(this.propsComponent.accountFrom,this.propsComponent.accountTo,this.propsComponent.amount)
     }
 
-    needsToRenderTransferCompleted = () => {
-      return this.state.completedDidDisplay === true
-    }
-
-    transferCompletedDidRender = () => {
-      this.setState({completedDidDisplay: false})
+    didTransferSucceed = () => {
+      if (this.propsComponent !== null) {
+        return this.propsComponent.transfer_completed
+      }
     }
 
     render() { 
       return (
         <OriginalComponent 
           {...this.props}
-          initShared={this.setOriginalComponentProps}
-          updateOriginalComponentProps={this.updateOriginalComponentProps}
-          selectAccountFrom={this.selectAccountFrom}
-          selectAccountTo={this.selectAccountTo}
+          updateSharedProps={this.originalComponentDidUpdate}
+          selectAccount={this.selectAccount}
           setAmount={this.setAmount}
-          areAccountsEqual={this.areAccountsEqual}
+          isAccountSelected={this.isAccountSelected}
           makeTransferButtonTitle={shR.strings.transfer.makeTransfer}
           makeTransfer={this.makeTransfer}
-          needsToRenderTransferCompleted={this.needsToRenderTransferCompleted}
-          transferCompletedDidRender={this.transferCompletedDidRender}
+          didTransferSucceed={this.didTransferSucceed}
         />
       );
     }

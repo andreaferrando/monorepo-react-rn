@@ -1,9 +1,14 @@
 const strings = {
   auth: {
+      jwtToken: 'jwtToken',
       login: 'Log In',
       logout: "Logout",
       email: 'Email',
       password: 'Password',
+      error: {
+        authenticationFailed: 'Authentication Failed',
+        logoutFailed: "An error occoured while logging out"
+      }
   },
   accounts: {
     title: 'Accounts',

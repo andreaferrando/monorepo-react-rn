@@ -6,29 +6,29 @@ import * as actionsAuth from '../redux/actions/auth_actions';
 export default function sharedAccountsFunctions(OriginalComponent) {
   return class extends React.Component {
 
-    setOriginalComponentProps = (originalProps) => {
+    init = (originalProps) => {
+      originalProps.accountsActions.fetchAccounts()
+      this.updateSharedProps(originalProps)
+    }
+
+    updateSharedProps = (originalProps) => {
       this.originalComponentProps = originalProps;
-      this.originalComponentProps.accountsActions.fetchAccounts()
     }
 
     logout = () => {
       this.originalComponentProps.authActions.logoutUser()
     }
 
-    makeTransfer = () => {
-      console.log("push to make transfer")
-      // this.originalComponentProps.transferActions.setFromAccount(account)
-    }
-
     render() { 
       return (
         <OriginalComponent 
           {...this.props}
-          setProps={this.setOriginalComponentProps}
+          initShared={this.init}
+          updateSharedProps={this.updateSharedProps}
           logout={this.logout}
           logoutButtonTitle={shR.strings.auth.logout}
+          logoutSucceeded={this.logoutSucceeded}
           makeTransferButtonTitle={shR.strings.accounts.makeTransfer}
-          makeTransfer={this.makeTransfer}
         />
       );
     }

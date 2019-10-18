@@ -8,9 +8,11 @@ import WebRoute from '../utils/webroute';
 
 class WebAccounts extends Component {
 
-  componentDidMount(){
-    this.props.setProps(this.props)
-  }
+  state = { }
+  static getDerivedStateFromProps(nextProps, prevState){
+    nextProps.updateSharedProps(nextProps)
+    return prevState
+ }
 
   renderList() {
     if (!this.props.accounts) { return null; }

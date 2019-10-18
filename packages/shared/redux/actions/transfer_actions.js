@@ -3,6 +3,7 @@ import firebase from '@firebase/app';
 import '@firebase/auth';
 import '@firebase/database';
 import shR from '../../res/R';
+import {useMockData} from '../../utils'
 
 export const selectAccountFrom = (from) => async dispatch => {
 	dispatch({ type: SHARED_SELECT_ACCOUNT_FROM_TRANSFER, payload:from });
@@ -24,6 +25,9 @@ export const setAmount = (amount) => async dispatch => {
 	dispatch({ type: SHARED_SET_AMOUNT_TO_TRANSFER, payload:amount });
 };
 
+export const completedDisplayed = (amount) => async dispatch => {
+	dispatch({ type: SHARED_COMPLETED_DISPLAYED_TRANSFER, payload:amount });
+};
 
 export const makeTransfer = (from, to, amount) => async dispatch => {
 	if (from === to) {
@@ -34,28 +38,57 @@ export const makeTransfer = (from, to, amount) => async dispatch => {
 		dispatch({ type: SHARED_ERROR_TRANSFER, error: shR.strings.transfer.error.transferZeroAmount});
 		return
 	}
-	const floatAmount = parseFloat(amount)
-	firebase.auth().onAuthStateChanged((user) => {
-		if (!user) { return }
-		firebase.database().ref(user.uid + '/accounts/' + from.number).update({
-			amount: from.amount - floatAmount
-		}, function(error) {
-			if (error) {
-				dispatch({ type: SHARED_ERROR_TRANSFER, error: shR.strings.transfer.error.failTransfer});
-			} else {
-				firebase.database().ref(user.uid + '/accounts/' + to.number).update({
-					amount: to.amount + floatAmount
-				}, function(error) {
-					if (error) {
-						dispatch({ type: SHARED_ERROR_TRANSFER, error: shR.strings.transfer.error.failTransfer});
-					} else {
-						dispatch({ type: SHARED_POST_TRANSFER, payload:true});
-					}
-				});
+
+	dispatch({ type: SHARED_LOADING_TRANSFER });
+	if (useMockData === true) { 
+		mockDataMakeTransfer().then( function(payload) {
+			dispatch({ type: SHARED_POST_TRANSFER, payload });
+		})
+	} else {
+		firebaseMakeTransfer(from, to, parseFloat(amount)).then( function(payload) {
+			dispatch({ type: SHARED_POST_TRANSFER, payload });
+		}).catch((errorMessage) => {
+			dispatch({ type: SHARED_ERROR_TRANSFER, errorMessage });
+		});
+	}
+};
+
+
+
+
+
+const firebaseMakeTransfer = (from, to, amount) => {
+	return new Promise((resolve, reject) => {
+		firebase.auth().onAuthStateChanged((user) => {
+			if (user === null) { 
+				reject(shR.strings.auth.error.authenticationFailed) 
+				return
 			}
+			firebase.database().ref(user.uid + '/accounts/' + from.number).update({
+				amount: from.amount - amount
+			}, function(error) {
+				if (error) {
+					reject(shR.strings.transfer.error.failTransfer);
+				} else {
+					firebase.database().ref(user.uid + '/accounts/' + to.number).update({
+						amount: to.amount + amount
+					}, function(error) {
+						if (error) {
+							reject(shR.strings.transfer.error.failTransfer);
+						} else {
+							resolve(true);
+						}
+					});
+				}
+			});
 		});
 	});
 };
-export const completedDisplayed = (amount) => async dispatch => {
-	dispatch({ type: SHARED_COMPLETED_DISPLAYED_TRANSFER, payload:amount });
+
+
+const mockDataMakeTransfer = () => {
+	return new Promise((resolve) => {
+		resolve(true);
+	});
 };
+

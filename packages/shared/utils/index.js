@@ -33,3 +33,4 @@ export function sharedResetStorage() {
     Storage.get().clear();
 }
 
+export const useMockData = false;

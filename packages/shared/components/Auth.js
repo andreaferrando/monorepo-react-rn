@@ -7,7 +7,7 @@ export default function sharedAuthFunctions(OriginalComponent) {
 
     state = { email:'andrea.ferrando@capco.com', password:'andrea.ferrando@capco.com' }
 
-    setOriginalComponentProps = (newProps) => {
+    originalComponentDidUpdate = (newProps) => {
       this.originalComponentProps = newProps;
     }
 
@@ -23,11 +23,15 @@ export default function sharedAuthFunctions(OriginalComponent) {
       this.originalComponentProps.loginUser({email:this.state.email, password:this.state.password})
     }
 
+    loginSucceeded = () => {
+      return this.originalComponentProps.isAuthenticated === true
+    }
+
     render() {
       return (
         <OriginalComponent 
           {...this.props}
-          setProps={this.setOriginalComponentProps}
+          updateSharedProps={this.originalComponentDidUpdate}
           onEmailUpdate={this.onEmailUpdate}
           onPasswordUpdate={this.onPasswordUpdate}
           onLoginClicked={this.onLoginClicked}
@@ -36,6 +40,7 @@ export default function sharedAuthFunctions(OriginalComponent) {
           emailPlaceholder={shR.strings.auth.email}
           passwordPlaceholder={shR.strings.auth.password}
           loginButtonTitle={shR.strings.auth.login}
+          loginSucceeded={this.loginSucceeded}
         />
       );
     }
@@ -44,8 +49,8 @@ export default function sharedAuthFunctions(OriginalComponent) {
 
 
 export const sharedMapStateToProps = state => {
-  const { auth_error, auth_loading, user } = state.sharedAuth;
-	return { auth_error, auth_loading, user };
+  const { auth_error, auth_loading, user, isAuthenticated } = state.sharedAuth;
+	return { auth_error, auth_loading, user, isAuthenticated };
 };
 
 export const sharedActions = actions
