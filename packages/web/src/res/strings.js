@@ -1,9 +1,9 @@
 const strings = {
   home: {
     links: {
-      home: "Home"
-    }
-  }
+      home: 'Home',
+    },
+  },
 };
 
 export default strings;

@@ -2,11 +2,11 @@ import {
   sharedIsLoggedIn,
   sharedResetStorage,
   sharedInitStorage,
-  sharedInitApp
-} from "shared/utils";
+  sharedInitApp,
+} from 'shared/utils';
 
 export function initApp() {
-  sharedInitApp("web");
+  sharedInitApp('web');
   sharedInitStorage(localStorage);
 }
 

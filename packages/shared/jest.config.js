@@ -1,8 +1,8 @@
 // Jest configuration for api
-const base = require("../../jest.config.base.js");
+import base from '../../jest.config.base.js';
 
-module.exports = {
-    ...base,
-    name: "shared",
-    displayName: "shared"
+export default {
+  ...base,
+  name: 'shared',
+  displayName: 'shared',
 };

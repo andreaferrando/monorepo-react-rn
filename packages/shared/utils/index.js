@@ -1,6 +1,6 @@
-import Storage from "./storage";
-import Platform from "./platform";
-import shR from "../res/R";
+import Storage from './storage';
+import Platform from './platform';
+import shR from '../res/R';
 
 export function sharedInitApp(source) {
   Platform.add(source);

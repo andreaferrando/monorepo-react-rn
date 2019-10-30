@@ -6,11 +6,13 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'implicit-arrow-linebreak': 'off',
         'no-console': 'off',
+        "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
         'max-len': [
             'error',
             {
-                code: 80,
+                code: 120,
                 ignorePattern: 'require'
+
             }
         ]
     },

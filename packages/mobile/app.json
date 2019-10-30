@@ -1,8 +1,8 @@
 {
     "expo": {
-        "name": "Nozzle Publisher Portal",
+        "name": "MobileMonorepo",
         "description": "A very interesting project.",
-        "slug": "Nozzle_Pub",
+        "slug": "Mobile_Monorepo",
         "privacy": "public",
         "sdkVersion": "35.0.0",
         "platforms": ["ios", "android"],

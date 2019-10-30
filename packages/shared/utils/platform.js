@@ -1,14 +1,14 @@
 class Platform {
   constructor() {
-    this._data = [];
+    this.data = [];
   }
 
   add(item) {
-    this._data.push(item);
+    this.data.push(item);
   }
 
   get() {
-    return this._data[0];
+    return this.data[0];
   }
 }
 

@@ -1,18 +1,18 @@
 [
     {
-        "Id": "c2d29867-3d0b-d497-9191-18a9d8ee7831",
+        "id": "c2d29867-3d0b-d497-9191-18a9d8ee7831",
         "parentId": null,
-        "Name": "example",
-        "Desc": "example description",
-        "Owner": "some dude",
+        "name": "example",
+        "desc": "example description",
+        "owner": "some dude",
         "addedTime": "2019-10-28 11:32:11"
     },
     {
-        "groupId": "c2d29867-3d0b-d497-9191-18a9d8ee7832",
+        "id": "c2d29867-3d0b-d497-9191-18a9d8ee7832",
         "parentId": "c2d29867-3d0b-d497-9191-18a9d8ee7831",
-        "Name": "example 2",
-        "groupDesc": "example description 2",
-        "groupOwner": "some other dude",
+        "name": "example 2",
+        "desc": "example description 2",
+        "owner": "some other dude",
         "addedTime": "2019-10-28 11:32:11"
     }
 ]

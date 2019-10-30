@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class Test extends Component {
-    state = {test: 'test'};
+    state = { test: 'test' };
 
     render() {
-        return (
-            <div>
-                <a>TEST</a>
-            </div>
-        );
+      return (
+        <div>
+          <a>TEST</a>
+        </div>
+      );
     }
 }
 
